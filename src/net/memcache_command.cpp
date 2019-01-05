@@ -132,7 +132,8 @@ MemcacheCommand MemcacheCommand::makeResponse(u_char *data, int length,
   if (size >= 0) {
     pcrecpp::RE("feature_entity_cache_key_.*").GlobalReplace("feature_entity_cache_key_", &key);
     pcrecpp::RE("[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}.*").GlobalReplace("token", &key);
-    pcrecpp::RE("r_[A-Za-z0-9]{14}").GlobalReplace("pid", &key);
+    pcrecpp::RE("r_[A-Za-z0-9]{14}").GlobalReplace("rpid", &key);
+    pcrecpp::RE("u_[A-Za-z0-9]{14}").GlobalReplace("upid", &key);
     pcrecpp::RE("[A-Fa-z0-9]{32}").GlobalReplace("hash", &key);
     pcrecpp::RE("\\d+").GlobalReplace("?", &key);
     return MemcacheCommand(MC_RESPONSE, sourceAddress, "", key, size);
