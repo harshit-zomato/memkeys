@@ -130,8 +130,8 @@ MemcacheCommand MemcacheCommand::makeResponse(u_char *data, int length,
   }
   re.PartialMatch(input, &key, &size);
   if (size >= 0) {
-    pcrecpp::RE("\\d+").GlobalReplace("?", &key);
     pcrecpp::RE("[A-Fa-z0-9]{32}").GlobalReplace("hash", &key);
+    pcrecpp::RE("\\d+").GlobalReplace("?", &key);
     return MemcacheCommand(MC_RESPONSE, sourceAddress, "", key, size);
   } else {
     return MemcacheCommand();
