@@ -131,6 +131,7 @@ MemcacheCommand MemcacheCommand::makeResponse(u_char *data, int length,
   re.PartialMatch(input, &key, &size);
   if (size >= 0) {
     pcrecpp::RE("feature_entity_cache_key_.*").GlobalReplace("feature_entity_cache_key_", &key);
+    pcrecpp::RE("feature_cache_key_.*").GlobalReplace("feature_cache_key_", &key);
     pcrecpp::RE("route_v.*").GlobalReplace("route_v?_", &key);
     pcrecpp::RE("user_addresses_v.*").GlobalReplace("user_addresses_v?_", &key);
     pcrecpp::RE("prediction_query_v.*").GlobalReplace("prediction_query_v?_", &key);
@@ -140,11 +141,14 @@ MemcacheCommand MemcacheCommand::makeResponse(u_char *data, int length,
     pcrecpp::RE("solr_response_cache_.*").GlobalReplace("solr_response_cache_", &key);
     pcrecpp::RE("referral_.*").GlobalReplace("referral_", &key);
     pcrecpp::RE("route_get_params_.*").GlobalReplace("route_get_params_", &key);
+    pcrecpp::RE("cuisine_id_from_name_.*").GlobalReplace("cuisine_id_from_name_", &key);
+    pcrecpp::RE("top_restaurants_solr_.*").GlobalReplace("top_restaurants_solr_", &key);
+    pcrecpp::RE("voucher_code_with_partner_.*").GlobalReplace("voucher_code_with_partner_", &key);
     pcrecpp::RE("getZipcodeDetailsByName_.*").GlobalReplace("getZipcodeDetailsByName_", &key);
     pcrecpp::RE("[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}.*").GlobalReplace("token", &key);
     pcrecpp::RE("[A-F0-9]{8}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{12}.*").GlobalReplace("token", &key);
-    pcrecpp::RE("r_[A-Za-z0-9]{14}").GlobalReplace("rpid", &key);
-    pcrecpp::RE("u_[A-Za-z0-9]{14}").GlobalReplace("upid", &key);
+    pcrecpp::RE("r_[A-Za-z0-9]{12,14}").GlobalReplace("rpid", &key);
+    pcrecpp::RE("u_[A-Za-z0-9]{12,14}").GlobalReplace("upid", &key);
     pcrecpp::RE("[A-Fa-z0-9]{32,38}").GlobalReplace("hash", &key);
     pcrecpp::RE("\\d+").GlobalReplace("?", &key);
     return MemcacheCommand(MC_RESPONSE, sourceAddress, "", key, size);
