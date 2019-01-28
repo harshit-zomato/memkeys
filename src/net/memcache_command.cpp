@@ -145,6 +145,8 @@ MemcacheCommand MemcacheCommand::makeResponse(u_char *data, int length,
     pcrecpp::RE("top_restaurants_solr_.*").GlobalReplace("top_restaurants_solr_", &key);
     pcrecpp::RE("voucher_code_with_partner_.*").GlobalReplace("voucher_code_with_partner_", &key);
     pcrecpp::RE("getZipcodeDetailsByName_.*").GlobalReplace("getZipcodeDetailsByName_", &key);
+    pcrecpp::RE("gp_place_.*").GlobalReplace("gp_place_", &key);
+    pcrecpp::RE("dishv2_id_from_name_.*").GlobalReplace("dishv2_id_from_name_", &key);
     pcrecpp::RE("[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}.*").GlobalReplace("token", &key);
     pcrecpp::RE("[A-F0-9]{8}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{12}.*").GlobalReplace("token", &key);
     pcrecpp::RE("r_[A-Za-z0-9]{12,14}").GlobalReplace("rpid", &key);
