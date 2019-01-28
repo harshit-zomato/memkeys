@@ -14,4 +14,7 @@ git submodule update --init --recursive
 autoreconf --force --install --verbose "$PROJ_DIR"
 test -n "$NOCONFIGURE" || "$PROJ_DIR/configure" "$@"
 
+make
+make check
+
 cd $BUILD_DIR
