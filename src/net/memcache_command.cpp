@@ -114,7 +114,7 @@ MemcacheCommand MemcacheCommand::makeRequest(u_char*, int, string)
 MemcacheCommand MemcacheCommand::makeResponse(u_char *data, int length,
                                               string sourceAddress)
 {
-  static pcrecpp::RE re("VALUE (\\S+) \\d+ (\\d+)",
+  static pcrecpp::RE re("VALUE www\.zomato\.com_v[0-9]+_(\\S+) \\d+ (\\d+)",
                         pcrecpp::RE_Options(PCRE_MULTILINE));
   string key;
   int size = -1;
@@ -137,6 +137,7 @@ MemcacheCommand MemcacheCommand::makeResponse(u_char *data, int length,
     pcrecpp::RE("^amp-.*").GlobalReplace("amp-", &key);
     pcrecpp::RE("mobile_detect_.*").GlobalReplace("mobile_detect_", &key);
     pcrecpp::RE("chat_order_mapping_.*").GlobalReplace("chat_order_mapping_", &key);
+    pcrecpp::RE("solr_response_cache_.*").GlobalReplace("solr_response_cache_", &key);
     pcrecpp::RE("referral_.*").GlobalReplace("referral_", &key);
     pcrecpp::RE("route_get_params_.*").GlobalReplace("route_get_params_", &key);
     pcrecpp::RE("getZipcodeDetailsByName_.*").GlobalReplace("getZipcodeDetailsByName_", &key);
