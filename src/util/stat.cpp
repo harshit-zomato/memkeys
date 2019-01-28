@@ -48,8 +48,7 @@ uint32_t Stat::getSize() const {
   return _size.load();
 }
 void Stat::setSize(const uint32_t size) {
-  uint32_t newSize = (size + (getCount() * getSize()) ) / (getCount() + 1);
-  _size.store(newSize);
+  _size.store(size);
 }
 
 double Stat::bandwidth(const uint64_t elapsed_t) const {
