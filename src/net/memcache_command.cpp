@@ -131,11 +131,12 @@ MemcacheCommand MemcacheCommand::makeResponse(u_char *data, int length,
   re.PartialMatch(input, &key, &size);
   if (size >= 0) {
     pcrecpp::RE("feature_entity_cache_key_.*").GlobalReplace("feature_entity_cache_key_", &key);
+    pcrecpp::RE("route_v.*").GlobalReplace("route_v?_", &key);
     pcrecpp::RE("[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}.*").GlobalReplace("token", &key);
     pcrecpp::RE("[A-F0-9]{8}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{12}.*").GlobalReplace("token", &key);
     pcrecpp::RE("r_[A-Za-z0-9]{14}").GlobalReplace("rpid", &key);
     pcrecpp::RE("u_[A-Za-z0-9]{14}").GlobalReplace("upid", &key);
-    pcrecpp::RE("[A-Fa-z0-9]{32}").GlobalReplace("hash", &key);
+    pcrecpp::RE("[A-Fa-z0-9]{32,38}").GlobalReplace("hash", &key);
     pcrecpp::RE("\\d+").GlobalReplace("?", &key);
     return MemcacheCommand(MC_RESPONSE, sourceAddress, "", key, size);
   } else {
